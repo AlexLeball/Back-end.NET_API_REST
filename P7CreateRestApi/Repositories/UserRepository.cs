@@ -1,8 +1,8 @@
-using Dot.Net.WebApi.Data;
-using Dot.Net.WebApi.Domain;
+using P7CreateRestApi.Data;
+using P7CreateRestApi.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dot.Net.WebApi.Repositories
+namespace P7CreateRestApi.Repositories
 {
     public class UserRepository
     {
@@ -26,11 +26,13 @@ namespace Dot.Net.WebApi.Repositories
 
         public void Add(User user)
         {
+            DbContext.Users.Add(user);
+            DbContext.SaveChanges();
         }
 
         public User FindById(int id)
         {
-            return null;
+            return DbContext.Users.FirstOrDefault(u => u.Id == id);
         }
     }
 }

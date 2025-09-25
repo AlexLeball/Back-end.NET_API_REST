@@ -1,12 +1,19 @@
-using Dot.Net.WebApi.Domain;
+using P7CreateRestApi.Domain;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Repositories;
 
-namespace Dot.Net.WebApi.Controllers
+namespace P7CreateRestApi.Controllers
 {
+    
     [ApiController]
     [Route("[controller]")]
     public class BidListController : ControllerBase
     {
+        private BidListRepository _bidListRepository;
+        public BidListController(BidListRepository bidListRepository)
+        {
+            _bidListRepository = bidListRepository;
+        }
         [HttpGet]
         [Route("validate")]
         public IActionResult Validate([FromBody] BidList bidList)
