@@ -1,49 +1,65 @@
-using P7CreateRestApi.Domain;
 using Microsoft.AspNetCore.Mvc;
-using P7CreateRestApi.Services;
+using P7CreateRestApi.Domain;
+using P7CreateRestApi.Services.Interfaces;
 
 namespace P7CreateRestApi.Controllers
 {
-    
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BidListController : ControllerBase
     {
-        private readonly BidListService _bidListService;
+        private readonly IBidListService _bidListService;
 
-        public BidListController(BidListService bidListService)
+        public BidListController(IBidListService bidListService)
         {
             _bidListService = bidListService;
         }
 
-        [HttpPost]
-        [Route("validate")]
-        public  IActionResult Validate([FromBody] BidList bidList)
+        // POST: api/bidlist/validate
+        [HttpPost("validate")]
+        public IActionResult Validate([FromBody] BidList bidList)
         {
-            // TODO: check data valid and save to db, after saving return bid list
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            _bidListService.Add(bidList);
+            return Ok(_bidListService.GetAll());
         }
 
-        [HttpGet]
-        [Route("update/{id}")]
+        // GET: api/bidlist/update/5
+        [HttpGet("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            return Ok();
+            var bid = _bidListService.GetById(id);
+            if (bid == null)
+                return NotFound();
+
+            return Ok(bid);
         }
 
-        [HttpPost]
-        [Route("update/{id}")]
+        // PATCH: api/bidlist/update/5
+        [HttpPatch("update/{id}")]
         public IActionResult UpdateBid(int id, [FromBody] BidList bidList)
         {
-            // TODO: check required fields, if valid call service to update Bid and return list Bid
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var updated = _bidListService.Update(id, bidList);
+            if (!updated)
+                return NotFound();
+
+            return Ok(_bidListService.GetAll());
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        // DELETE: api/bidlist/5
+        [HttpDelete("{id}")]
         public IActionResult DeleteBid(int id)
         {
-            return Ok();
-        }
-    }
+            var deleted = _bidListService.Delete(id);
+            if (!deleted)
+                return NotFound();
+
+            return Ok(_bidListService);
+        } 
+    } 
 }

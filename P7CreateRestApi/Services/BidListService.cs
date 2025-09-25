@@ -1,6 +1,5 @@
 ﻿using P7CreateRestApi.Data;
 using P7CreateRestApi.Domain;
-using Microsoft.EntityFrameworkCore;
 using P7CreateRestApi.Services.Interfaces;
 
 namespace P7CreateRestApi.Services

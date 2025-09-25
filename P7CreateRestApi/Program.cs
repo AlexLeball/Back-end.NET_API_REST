@@ -1,5 +1,7 @@
-using P7CreateRestApi.Data;
 using Microsoft.EntityFrameworkCore;
+using P7CreateRestApi.Data;
+using P7CreateRestApi.Services;
+using P7CreateRestApi.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -13,6 +15,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LocalDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IBidListService, BidListService>();
+builder.Services.AddScoped<ICurvePointService, CurvePointService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
+//builder.Services.AddScoped<ITradeService, TradeService>();
+//builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddScoped<ILoginService, LoginService>();
 
 var app = builder.Build();
 
