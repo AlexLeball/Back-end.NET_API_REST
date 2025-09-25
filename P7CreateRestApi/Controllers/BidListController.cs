@@ -1,6 +1,6 @@
 using P7CreateRestApi.Domain;
 using Microsoft.AspNetCore.Mvc;
-using P7CreateRestApi.Repositories;
+using P7CreateRestApi.Services;
 
 namespace P7CreateRestApi.Controllers
 {
@@ -9,14 +9,16 @@ namespace P7CreateRestApi.Controllers
     [Route("[controller]")]
     public class BidListController : ControllerBase
     {
-        private BidListRepository _bidListRepository;
-        public BidListController(BidListRepository bidListRepository)
+        private readonly BidListService _bidListService;
+
+        public BidListController(BidListService bidListService)
         {
-            _bidListRepository = bidListRepository;
+            _bidListService = bidListService;
         }
-        [HttpGet]
+
+        [HttpPost]
         [Route("validate")]
-        public IActionResult Validate([FromBody] BidList bidList)
+        public  IActionResult Validate([FromBody] BidList bidList)
         {
             // TODO: check data valid and save to db, after saving return bid list
             return Ok();

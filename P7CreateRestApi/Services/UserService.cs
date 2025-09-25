@@ -2,13 +2,13 @@ using P7CreateRestApi.Data;
 using P7CreateRestApi.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace P7CreateRestApi.Repositories
+namespace P7CreateRestApi.Services
 {
-    public class UserRepository
+    public class UserService
     {
         public LocalDbContext DbContext { get; }
 
-        public UserRepository(LocalDbContext dbContext)
+        public UserService(LocalDbContext dbContext)
         {
             DbContext = dbContext;
         }

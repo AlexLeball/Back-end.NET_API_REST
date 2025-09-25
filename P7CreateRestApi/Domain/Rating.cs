@@ -4,8 +4,8 @@ namespace P7CreateRestApi.Domain
 {
     public class Rating
     {
-        [Key]
         // TODO: Map columns in data table RATING with corresponding fields
+        [Key]
         public int Id {get; set; }
         public string MoodysRating { get; set; }
         public string SandPRating { get; set; }

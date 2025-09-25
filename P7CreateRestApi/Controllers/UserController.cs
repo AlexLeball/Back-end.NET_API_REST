@@ -1,5 +1,5 @@
 using P7CreateRestApi.Domain;
-using P7CreateRestApi.Repositories;
+using P7CreateRestApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace P7CreateRestApi.Controllers
@@ -8,9 +8,9 @@ namespace P7CreateRestApi.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private UserRepository _userRepository;
+        private readonly UserService _userRepository;
 
-        public UserController(UserRepository userRepository)
+        public UserController(UserService userRepository)
         {
             _userRepository = userRepository;
         }
