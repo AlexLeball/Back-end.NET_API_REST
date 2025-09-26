@@ -1,4 +1,5 @@
 using P7CreateRestApi.Domain;
+using P7CreateRestApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace P7CreateRestApi.Controllers
@@ -7,53 +8,73 @@ namespace P7CreateRestApi.Controllers
     [Route("[controller]")]
     public class TradeController : ControllerBase
     {
-        // TODO: Inject Trade service
+        private readonly ITradeService _tradeService;
 
-        [HttpGet]
-        [Route("list")]
+        public TradeController(ITradeService tradeService)
+        {
+            _tradeService = tradeService;
+        }
+
+        // GET: /trade/list
+        [HttpGet("list")]
         public IActionResult Home()
         {
-            // TODO: find all Trade, add to model
-            return Ok();
+            var trades = _tradeService.GetAll();
+            return Ok(trades);
         }
 
-        [HttpGet]
-        [Route("add")]
-        public IActionResult AddTrade([FromBody]Trade trade)
+        // POST: /trade/add
+        [HttpPost("add")]
+        public IActionResult AddTrade([FromBody] Trade trade)
         {
-            return Ok();
+            if (trade == null) return BadRequest("Invalid trade data");
+            _tradeService.Add(trade);
+            return Ok(trade);
         }
 
-        [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]Trade trade)
+        // POST: /trade/validate
+        [HttpPost("validate")]
+        public IActionResult Validate([FromBody] Trade trade)
         {
-            // TODO: check data valid and save to db, after saving return Trade list
-            return Ok();
+            if (trade == null) return BadRequest("Invalid trade data");
+
+            // Example validation: require Account and Trader
+            if (string.IsNullOrWhiteSpace(trade.Account) || string.IsNullOrWhiteSpace(trade.Trader))
+                return BadRequest("Account and Trader are required");
+
+            _tradeService.Add(trade);
+            return Ok(_tradeService.GetAll());
         }
 
-        [HttpGet]
-        [Route("update/{id}")]
+        // GET: /trade/update/{id}
+        [HttpGet("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            // TODO: get Trade by Id and to model then show to the form
-            return Ok();
+            var trade = _tradeService.GetById(id);
+            if (trade == null) return NotFound($"Trade with id {id} not found");
+            return Ok(trade);
         }
 
-        [HttpPost]
-        [Route("update/{id}")]
+        // PUT: /trade/update/{id}
+        [HttpPut("update/{id}")]
         public IActionResult UpdateTrade(int id, [FromBody] Trade trade)
         {
-            // TODO: check required fields, if valid call service to update Trade and return Trade list
-            return Ok();
+            if (trade == null) return BadRequest("Invalid trade data");
+
+            var updated = _tradeService.Update(id, trade);
+            if (!updated) return NotFound($"Trade with id {id} not found");
+
+            return Ok(_tradeService.GetAll());
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        // DELETE: /trade/{id}
+        [HttpDelete("{id}")]
         public IActionResult DeleteTrade(int id)
         {
-            // TODO: Find Trade by Id and delete the Trade, return to Trade list
-            return Ok();
+            var deleted = _tradeService.Delete(id);
+            if (!deleted) return NotFound($"Trade with id {id} not found");
+
+            return Ok(_tradeService.GetAll());
         }
     }
 }

@@ -6,7 +6,7 @@ namespace P7CreateRestApi.Services
 {
     public class CurvePointService : ICurvePointService
     {
-        public LocalDbContext DbContext { get; }
+        private LocalDbContext DbContext { get; }
 
         public CurvePointService(LocalDbContext dbContext)
         {

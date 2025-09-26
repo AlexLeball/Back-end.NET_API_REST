@@ -6,7 +6,7 @@ namespace P7CreateRestApi.Services
 {
     public class UserService
     {
-        public LocalDbContext DbContext { get; }
+        private LocalDbContext DbContext { get; }
 
         public UserService(LocalDbContext dbContext)
         {

@@ -19,7 +19,8 @@ builder.Services.AddDbContext<LocalDbContext>(options =>
 builder.Services.AddScoped<IBidListService, BidListService>();
 builder.Services.AddScoped<ICurvePointService, CurvePointService>();
 builder.Services.AddScoped<IRatingService, RatingService>();
-//builder.Services.AddScoped<ITradeService, TradeService>();
+builder.Services.AddScoped<ITradeService, TradeService>();
+builder.Services.AddScoped<IRuleNameService, RuleNameService>();
 //builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddScoped<ILoginService, LoginService>();
 

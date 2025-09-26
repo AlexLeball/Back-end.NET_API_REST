@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Domain;
+using P7CreateRestApi.Services.Interfaces;
 
 namespace P7CreateRestApi.Controllers
 {
@@ -7,53 +8,69 @@ namespace P7CreateRestApi.Controllers
     [Route("[controller]")]
     public class RuleNameController : ControllerBase
     {
-        // TODO: Inject RuleName service
+        private readonly IRuleNameService _ruleNameService;
 
-        [HttpGet]
-        [Route("list")]
+        public RuleNameController(IRuleNameService ruleNameService)
+        {
+            _ruleNameService = ruleNameService;
+        }
+
+        [HttpGet("list")]
         public IActionResult Home()
         {
-            // TODO: find all RuleName, add to model
-            return Ok();
+            var ruleNames = _ruleNameService.GetAll();
+            return Ok(ruleNames);
         }
 
-        [HttpGet]
-        [Route("add")]
-        public IActionResult AddRuleName([FromBody]RuleName trade)
+        [HttpPost("add")]
+        public IActionResult AddRuleName([FromBody] RuleName ruleName)
         {
-            return Ok();
+            if (ruleName == null) return BadRequest("Invalid RuleName data");
+
+            _ruleNameService.Add(ruleName);
+            return Ok(ruleName);
         }
 
-        [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]RuleName trade)
+        [HttpPost("validate")]
+        public IActionResult Validate([FromBody] RuleName ruleName)
         {
-            // TODO: check data valid and save to db, after saving return RuleName list
-            return Ok();
+            if (ruleName == null) return BadRequest("Invalid RuleName data");
+
+            if (string.IsNullOrWhiteSpace(ruleName.Name))
+                return BadRequest("Name is required");
+
+            _ruleNameService.Add(ruleName);
+            return Ok(_ruleNameService.GetAll());
         }
 
-        [HttpGet]
-        [Route("update/{id}")]
+        [HttpGet("update/{id}")]
         public IActionResult ShowUpdateForm(int id)
         {
-            // TODO: get RuleName by Id and to model then show to the form
-            return Ok();
+            var ruleName = _ruleNameService.GetById(id);
+            if (ruleName == null) return NotFound($"RuleName with id {id} not found");
+
+            return Ok(ruleName);
         }
 
-        [HttpPost]
-        [Route("update/{id}")]
-        public IActionResult UpdateRuleName(int id, [FromBody] RuleName rating)
+        [HttpPut("update/{id}")]
+        public IActionResult UpdateRuleName(int id, [FromBody] RuleName ruleName)
         {
-            // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-            return Ok();
+            if (ruleName == null) return BadRequest("Invalid RuleName data");
+
+            var updated = _ruleNameService.Update(id, ruleName);
+            if (!updated) return NotFound($"RuleName with id {id} not found");
+
+            return Ok(_ruleNameService.GetAll());
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteRuleName(int id)
         {
-            // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-            return Ok();
+            var deleted = _ruleNameService.Delete(id);
+            if (!deleted) return NotFound($"RuleName with id {id} not found");
+
+            return Ok(_ruleNameService.GetAll());
         }
+
     }
 }
