@@ -50,7 +50,7 @@ namespace P7CreateRestApi.Controllers
         }
 
         // PUT: api/curve/5
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public IActionResult UpdateCurvePoint(int id, [FromBody] CurvePoint curvePoint)
         {
             if (!ModelState.IsValid)

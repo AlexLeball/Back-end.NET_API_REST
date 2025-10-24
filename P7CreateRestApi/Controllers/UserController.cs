@@ -25,8 +25,7 @@ namespace P7CreateRestApi.Controllers
             return Ok(user);
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet ("{id}")]
         public IActionResult FindUser(int id)
         {
             User user = _userRepository.FindById(id);
@@ -34,11 +33,10 @@ namespace P7CreateRestApi.Controllers
             if (user == null)
                 throw new ArgumentException("Invalid user Id:" + id);
 
-            return Ok();
+            return Ok(user);
         }
 
-        [HttpPost]
-        [Route("{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
             if (user == null)
@@ -50,11 +48,10 @@ namespace P7CreateRestApi.Controllers
             existingUser.Fullname = user.Fullname;
             existingUser.Password = user.Password;
             existingUser.Role = user.Role;
-            return Ok(_userRepository.FindAll());
+            return Ok(user);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
             User user = _userRepository.FindById(id);

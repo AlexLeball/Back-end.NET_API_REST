@@ -6,6 +6,7 @@ namespace P7CreateRestApi.Repositories.Interfaces
     public interface IUserRepository 
     {
         Task<List<User>> FindAll();
+        bool Update(int id, User user);
         void Add(User user);
         User FindById(int id);
     }
