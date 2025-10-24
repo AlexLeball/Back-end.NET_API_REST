@@ -1,6 +1,6 @@
 using P7CreateRestApi.Domain;
 using Microsoft.AspNetCore.Mvc;
-using P7CreateRestApi.Services.Interfaces;
+using P7CreateRestApi.Repositories.Interfaces;
 
 // Ajoutez cette directive using si l'interface ICurvePointService se trouve dans un autre namespace
 // using P7CreateRestApi.Services.Interfaces;
@@ -11,77 +11,67 @@ namespace P7CreateRestApi.Controllers
     [Route("api/[controller]")]
     public class CurveController : ControllerBase
     {
-        private readonly ICurvePointService _curvePointService;
+        private readonly ICurvePointRepository _curvePointRepository;
 
-        public CurveController(ICurvePointService curvePointService)
+        public CurveController(ICurvePointRepository curvePointRepository)
         {
-            _curvePointService = curvePointService;
+            _curvePointRepository = curvePointRepository;
         }
 
-        // GET: api/curve/list
-        [HttpGet("list")]
+        // GET: api/curve
+        [HttpGet]
         public IActionResult GetAllCurvePoints()
         {
-            var curvePoints = _curvePointService.GetAll();
+            var curvePoints = _curvePointRepository.GetAll();
             return Ok(curvePoints);
         }
 
-        // POST: api/curve/add
-        [HttpPost("add")]
+  
+        [HttpPost]
         public IActionResult AddCurvePoint([FromBody] CurvePoint curvePoint)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            _curvePointService.Add(curvePoint);
-            return Ok(_curvePointService.GetAll());
+            _curvePointRepository.Add(curvePoint);
+            return Ok(_curvePointRepository.GetAll());
         }
 
-        // POST: api/curve/validate
-        [HttpPost("validate")]
-        public IActionResult Validate([FromBody] CurvePoint curvePoint)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
-            _curvePointService.Add(curvePoint); // Assuming validation happens inside service
-            return Ok(_curvePointService.GetAll());
-        }
-
-        // GET: api/curve/update/5
-        [HttpGet("update/{id}")]
+        // GET: api/curve/5
+        [HttpGet("{id}")]
         public IActionResult GetCurvePoint(int id)
         {
-            var curvePoint = _curvePointService.GetById(id);
+            var curvePoint = _curvePointRepository.GetById(id);
             if (curvePoint == null)
                 return NotFound();
 
             return Ok(curvePoint);
         }
 
-        // PUT: api/curve/update/5
-        [HttpPut("update/{id}")]
+        // PUT: api/curve/5
+        [HttpPut("{id}")]
         public IActionResult UpdateCurvePoint(int id, [FromBody] CurvePoint curvePoint)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var updated = _curvePointService.Update(id, curvePoint);
+            var updated = _curvePointRepository.Update(id, curvePoint);
             if (!updated)
                 return NotFound();
 
-            return Ok(_curvePointService.GetAll());
+            return Ok(_curvePointRepository.GetAll());
         }
 
         // DELETE: api/curve/5
         [HttpDelete("{id}")]
         public IActionResult DeleteCurvePoint(int id)
         {
-            var deleted = _curvePointService.Delete(id);
+            var deleted = _curvePointRepository.Delete(id);
             if (!deleted)
                 return NotFound();
 
-            return Ok(_curvePointService.GetAll());
+            return Ok(_curvePointRepository.GetAll());
         }
     }
 }

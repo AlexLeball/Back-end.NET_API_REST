@@ -1,8 +1,8 @@
 using P7CreateRestApi.Domain;
 
-namespace P7CreateRestApi.Services.Interfaces
+namespace P7CreateRestApi.Repositories.Interfaces
 {
-    public interface ICurvePointService
+    public interface ICurvePointRepository
     {
         IEnumerable<CurvePoint> GetAll();
         CurvePoint? GetById(int id);

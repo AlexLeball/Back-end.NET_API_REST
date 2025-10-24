@@ -1,8 +1,8 @@
 ﻿using P7CreateRestApi.Domain;
 
-namespace P7CreateRestApi.Services.Interfaces
+namespace P7CreateRestApi.Repositories.Interfaces
 {
-    public interface IRatingService
+    public interface IRatingRepository
     {
         IEnumerable<Rating> GetAll();
         Rating? GetById(int id);

@@ -1,9 +1,9 @@
 ﻿using P7CreateRestApi.Domain;
 
 
-namespace P7CreateRestApi.Services.Interfaces
+namespace P7CreateRestApi.Repositories.Interfaces
 {
-    public interface ITradeService
+    public interface ITradeRepository
     {
         IEnumerable<Trade> GetAll();
         Trade? GetById(int id);

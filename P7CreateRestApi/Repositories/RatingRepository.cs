@@ -1,13 +1,13 @@
 ﻿using P7CreateRestApi.Data;
 using P7CreateRestApi.Domain;
-using P7CreateRestApi.Services.Interfaces;
+using P7CreateRestApi.Repositories.Interfaces;
 
-namespace P7CreateRestApi.Services
+namespace P7CreateRestApi.Repositories
 {
-    public class RatingService : IRatingService
+    public class RatingRepository : IRatingRepository
     {
         public LocalDbContext DbContext { get; }
-        public RatingService(LocalDbContext dbContext)
+        public RatingRepository(LocalDbContext dbContext)
         {
             DbContext = dbContext;
         }

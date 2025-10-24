@@ -1,14 +1,14 @@
 ﻿using P7CreateRestApi.Data;
 using P7CreateRestApi.Domain;
-using P7CreateRestApi.Services.Interfaces;
+using P7CreateRestApi.Repositories.Interfaces;
 
-namespace P7CreateRestApi.Services
+namespace P7CreateRestApi.Repositories
 {
-    public class CurvePointService : ICurvePointService
+    public class CurvePointRepository : ICurvePointRepository
     {
         private LocalDbContext DbContext { get; }
 
-        public CurvePointService(LocalDbContext dbContext)
+        public CurvePointRepository(LocalDbContext dbContext)
         {
             DbContext = dbContext;
         }

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using P7CreateRestApi.Domain;
 
-namespace P7CreateRestApi.Services.Interfaces
+namespace P7CreateRestApi.Repositories.Interfaces
 {
-    public interface IRuleNameService
+    public interface IRuleNameRepository
     {
         IEnumerable<RuleName> GetAll();
         RuleName? GetById(int id);

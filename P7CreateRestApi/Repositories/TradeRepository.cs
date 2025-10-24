@@ -1,13 +1,13 @@
 ﻿using P7CreateRestApi.Data;
 using P7CreateRestApi.Domain;
-using P7CreateRestApi.Services.Interfaces;
+using P7CreateRestApi.Repositories.Interfaces;
 
-namespace P7CreateRestApi.Services
+namespace P7CreateRestApi.Repositories
 {
-    public class TradeService : ITradeService
+    public class TradeRepository : ITradeRepository
     {
         private LocalDbContext DbContext { get; }
-        public TradeService(LocalDbContext dbContext)
+        public TradeRepository(LocalDbContext dbContext)
         {
             DbContext = dbContext;
         }

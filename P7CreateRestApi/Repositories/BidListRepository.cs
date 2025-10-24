@@ -1,14 +1,14 @@
 ﻿using P7CreateRestApi.Data;
 using P7CreateRestApi.Domain;
-using P7CreateRestApi.Services.Interfaces;
+using P7CreateRestApi.Repositories.Interfaces;
 
-namespace P7CreateRestApi.Services
+namespace P7CreateRestApi.Repositories
 {
-    public class BidListService : IBidListService
+    public class BidListRepository : IBidListRepository
     {
         public LocalDbContext DbContext { get; }
 
-        public BidListService(LocalDbContext dbContext)
+        public BidListRepository(LocalDbContext dbContext)
         {
             DbContext = dbContext;
         }

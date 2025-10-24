@@ -1,7 +1,7 @@
 using P7CreateRestApi.Controllers;
 using P7CreateRestApi.Domain;
 using Microsoft.AspNetCore.Mvc;
-using P7CreateRestApi.Services.Interfaces;
+using P7CreateRestApi.Repositories.Interfaces;
 
 namespace P7CreateRestApi.Controllers
 {
@@ -9,23 +9,23 @@ namespace P7CreateRestApi.Controllers
     [Route("api/[controller]")]
     public class RatingController : ControllerBase
     {
-        private readonly IRatingService _ratingService;
+        private readonly IRatingRepository _ratingService;
 
-        public RatingController(IRatingService ratingService)
+        public RatingController(IRatingRepository ratingService)
         {
             _ratingService = ratingService;
         }
 
-        // GET: api/rating/list
-        [HttpGet("list")]
+        // GET: api/rating
+        [HttpGet]
         public IActionResult GetAll()
         {
             var ratings = _ratingService.GetAll();
             return Ok(ratings);
         }
 
-        // POST: api/rating/add
-        [HttpPost("add")]
+        // POST: api/rating
+        [HttpPost]
         public IActionResult Add([FromBody] Rating rating)
         {
             if (!ModelState.IsValid)
@@ -35,16 +35,6 @@ namespace P7CreateRestApi.Controllers
             return Ok(_ratingService.GetAll());
         }
 
-        // POST: api/rating/validate
-        [HttpPost("validate")]
-        public IActionResult Validate([FromBody] Rating rating)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            _ratingService.Add(rating); // assume validation inside service
-            return Ok(_ratingService.GetAll());
-        }
 
         // GET: api/rating/{id}
         [HttpGet("{id}")]

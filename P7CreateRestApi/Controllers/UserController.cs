@@ -1,5 +1,6 @@
 using P7CreateRestApi.Domain;
-using P7CreateRestApi.Services;
+using P7CreateRestApi.Repositories;
+using P7CreateRestApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace P7CreateRestApi.Controllers
@@ -8,44 +9,25 @@ namespace P7CreateRestApi.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserService _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserController(UserService userRepository)
+        public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        [HttpGet]
-        [Route("list")]
-        public IActionResult Home()
-        {
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("add")]
+        [HttpPost]
         public IActionResult AddUser([FromBody]User user)
         {
-            return Ok();
+            if (user == null)
+                return BadRequest("Invalid user data");
+            _userRepository.Add(user);
+            return Ok(user);
         }
 
         [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-           
-           _userRepository.Add(user);
-
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
+        [Route("{id}")]
+        public IActionResult FindUser(int id)
         {
             User user = _userRepository.FindById(id);
             
@@ -56,11 +38,19 @@ namespace P7CreateRestApi.Controllers
         }
 
         [HttpPost]
-        [Route("update/{id}")]
+        [Route("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] User user)
         {
-            // TODO: check required fields, if valid call service to update Trade and return Trade list
-            return Ok();
+            if (user == null)
+                return BadRequest("Invalid user data");
+            User existingUser = _userRepository.FindById(id);
+            if (existingUser == null)
+                throw new ArgumentException("Invalid user Id:" + id);
+            existingUser.UserName = user.UserName;
+            existingUser.Fullname = user.Fullname;
+            existingUser.Password = user.Password;
+            existingUser.Role = user.Role;
+            return Ok(_userRepository.FindAll());
         }
 
         [HttpDelete]
@@ -72,13 +62,6 @@ namespace P7CreateRestApi.Controllers
             if (user == null)
                 throw new ArgumentException("Invalid user Id:" + id);
 
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("/secure/article-details")]
-        public async Task<ActionResult<List<User>>> GetAllUserArticles()
-        {
             return Ok();
         }
     }

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using P7CreateRestApi.Data;
-using P7CreateRestApi.Services;
-using P7CreateRestApi.Services.Interfaces;
+using P7CreateRestApi.Repositories;
+using P7CreateRestApi.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -16,12 +16,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<LocalDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IBidListService, BidListService>();
-builder.Services.AddScoped<ICurvePointService, CurvePointService>();
-builder.Services.AddScoped<IRatingService, RatingService>();
-builder.Services.AddScoped<ITradeService, TradeService>();
-builder.Services.AddScoped<IRuleNameService, RuleNameService>();
-//builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IBidListRepository, BidListRepository>();
+builder.Services.AddScoped<ICurvePointRepository, CurvePointRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+builder.Services.AddScoped<ITradeRepository, TradeRepository>();
+builder.Services.AddScoped<IRuleNameRepository, RuleNameRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 //builder.Services.AddScoped<ILoginService, LoginService>();
 
 var app = builder.Build();
