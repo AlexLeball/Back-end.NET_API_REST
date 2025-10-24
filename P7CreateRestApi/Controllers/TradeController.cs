@@ -15,14 +15,6 @@ namespace P7CreateRestApi.Controllers
             _tradeRepository = tradeRepository;
         }
 
-        // GET: /trade
-        [HttpGet]
-        public IActionResult Home()
-        {
-            var trades = _tradeRepository.GetAll();
-            return Ok(trades);
-        }
-
         // POST: /trade
         [HttpPost]
         public IActionResult AddTrade([FromBody] Trade trade)
@@ -34,7 +26,7 @@ namespace P7CreateRestApi.Controllers
 
         // GET: /trade/{id}
         [HttpGet("{id}")]
-        public IActionResult ShowUpdateForm(int id)
+        public IActionResult FindTrade(int id)
         {
             var trade = _tradeRepository.GetById(id);
             if (trade == null) return NotFound($"Trade with id {id} not found");
@@ -50,7 +42,7 @@ namespace P7CreateRestApi.Controllers
             var updated = _tradeRepository.Update(id, trade);
             if (!updated) return NotFound($"Trade with id {id} not found");
 
-            return Ok(_tradeRepository.GetAll());
+            return Ok(_tradeRepository.GetById(id));
         }
 
         // DELETE: /trade/{id}

@@ -15,13 +15,6 @@ namespace P7CreateRestApi.Controllers
             _ruleNameRepository = ruleNameService;
         }
 
-        [HttpGet]
-        public IActionResult Home()
-        {
-            var ruleNames = _ruleNameRepository.GetAll();
-            return Ok(ruleNames);
-        }
-
         [HttpPost]
         public IActionResult AddRuleName([FromBody] RuleName ruleName)
         {
@@ -32,7 +25,7 @@ namespace P7CreateRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult ShowUpdateForm(int id)
+        public IActionResult GetRuleName(int id)
         {
             var ruleName = _ruleNameRepository.GetById(id);
             if (ruleName == null) return NotFound($"RuleName with id {id} not found");

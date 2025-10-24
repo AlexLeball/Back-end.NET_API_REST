@@ -6,7 +6,7 @@ using P7CreateRestApi.Repositories.Interfaces;
 namespace P7CreateRestApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class RatingController : ControllerBase
     {
         private readonly IRatingRepository _ratingService;
@@ -14,14 +14,6 @@ namespace P7CreateRestApi.Controllers
         public RatingController(IRatingRepository ratingService)
         {
             _ratingService = ratingService;
-        }
-
-        // GET: api/rating
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var ratings = _ratingService.GetAll();
-            return Ok(ratings);
         }
 
         // POST: api/rating
@@ -32,7 +24,7 @@ namespace P7CreateRestApi.Controllers
                 return BadRequest(ModelState);
 
             _ratingService.Add(rating);
-            return Ok(_ratingService.GetAll());
+            return Ok(rating);
         }
 
 
@@ -58,7 +50,7 @@ namespace P7CreateRestApi.Controllers
             if (!updated)
                 return NotFound();
 
-            return Ok(_ratingService.GetAll());
+            return Ok(_ratingService.GetById(id));
         }
 
         // DELETE: api/rating/{id}
