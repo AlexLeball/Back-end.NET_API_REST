@@ -5,7 +5,7 @@ using P7CreateRestApi.Repositories.Interfaces;
 namespace P7CreateRestApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class BidListController : ControllerBase
     {
         private readonly IBidListRepository _bidListRepository;
@@ -13,6 +13,15 @@ namespace P7CreateRestApi.Controllers
         public BidListController(IBidListRepository bidListRepository)
         {
             _bidListRepository = bidListRepository;
+        }
+
+        [HttpPost]
+        public IActionResult CreateBid([FromBody] BidList bidList)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            _bidListRepository.Add(bidList);
+            return Ok(bidList);
         }
 
         // GET: api/bidlist/update/5
@@ -27,7 +36,7 @@ namespace P7CreateRestApi.Controllers
         }
 
         // PATCH: api/bidlist/update/5
-        [HttpPatch("{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateBid(int id, [FromBody] BidList bidList)
         {
             if (!ModelState.IsValid)
@@ -37,7 +46,7 @@ namespace P7CreateRestApi.Controllers
             if (!updated)
                 return NotFound();
 
-            return Ok(_bidListRepository.GetAll());
+            return Ok(_bidListRepository.GetById(id));
         }
 
         // DELETE: api/bidlist/5
@@ -48,7 +57,7 @@ namespace P7CreateRestApi.Controllers
             if (!deleted)
                 return NotFound();
 
-            return Ok(_bidListRepository);
+            return Ok("bid deleted");
         } 
     } 
 }

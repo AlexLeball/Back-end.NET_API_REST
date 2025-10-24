@@ -13,6 +13,8 @@ namespace P7CreateRestApi.Repositories
             DbContext = dbContext;
         }
 
+
+
         public BidList? GetById(int id)
         {
             return DbContext.Bids.FirstOrDefault(c => c.BidListId == id);

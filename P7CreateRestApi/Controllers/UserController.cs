@@ -1,5 +1,4 @@
 using P7CreateRestApi.Domain;
-using P7CreateRestApi.Repositories;
 using P7CreateRestApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
