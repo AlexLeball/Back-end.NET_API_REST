@@ -1,45 +1,40 @@
-using P7CreateRestApi.Data;
+using Microsoft.AspNetCore.Identity;
 using P7CreateRestApi.Domain;
-using Microsoft.EntityFrameworkCore;
 using P7CreateRestApi.Repositories.Interfaces;
 
 namespace P7CreateRestApi.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private LocalDbContext DbContext { get; }
+        private readonly UserManager<User> _userManager;
 
-        public UserRepository(LocalDbContext dbContext)
+        public UserRepository(UserManager<User> userManager)
         {
-            DbContext = dbContext;
+            _userManager = userManager;
         }
 
-        public async Task<List<User>> FindAll()
+        public IEnumerable<User> FindAll()
         {
-            return await DbContext.Users.ToListAsync();
+            return _userManager.Users.ToList();
         }
 
-        public bool Update(int id, User user)
+        public async Task<User> FindByIdAsync(string id)
         {
-            var existing = DbContext.Users.Find(id);
-            if (existing == null) return false;
-            existing.UserName = user.UserName;
-            existing.Fullname = user.Fullname;
-            existing.Password = user.Password;
-            existing.Role = user.Role;
-            DbContext.SaveChanges();
-            return true;
+            return await _userManager.FindByIdAsync(id);
         }
 
-        public void Add(User user)
+        public async Task<IdentityResult> AddAsync(User user, string password)
         {
-            DbContext.Users.Add(user);
-            DbContext.SaveChanges();
+            user.Role = "User";
+            user.Fullname = user.Fullname ?? "New User";
+
+            var result = await _userManager.CreateAsync(user, password);
+            return result;
         }
 
-        public User FindById(int id)
+        public async Task<IdentityResult> UpdateAsync(User user)
         {
-            return DbContext.Users.FirstOrDefault(u => u.Id == id);
+            return await _userManager.UpdateAsync(user);
         }
     }
 }

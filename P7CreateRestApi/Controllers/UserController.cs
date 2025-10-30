@@ -1,11 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Domain;
 using P7CreateRestApi.Repositories.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 
 namespace P7CreateRestApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
@@ -15,50 +15,40 @@ namespace P7CreateRestApi.Controllers
             _userRepository = userRepository;
         }
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_userRepository.FindAll());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            var user = await _userRepository.FindByIdAsync(id);
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
+
         [HttpPost]
-        public IActionResult AddUser([FromBody]User user)
+        public async Task<IActionResult> AddUser([FromBody] RegisterDto model)
         {
-            if (user == null)
-                return BadRequest("Invalid user data");
-            _userRepository.Add(user);
-            return Ok(user);
+            var user = new User { UserName = model.Email, Email = model.Email, Fullname = model.Fullname, Role = model.Role};
+            var result = await _userRepository.AddAsync(user, model.Password);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            return Ok("User created successfully");
         }
+    }
 
-        [HttpGet ("{id}")]
-        public IActionResult FindUser(int id)
-        {
-            User user = _userRepository.FindById(id);
-            
-            if (user == null)
-                throw new ArgumentException("Invalid user Id:" + id);
-
-            return Ok(user);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] User user)
-        {
-            if (user == null)
-                return BadRequest("Invalid user data");
-            User existingUser = _userRepository.FindById(id);
-            if (existingUser == null)
-                throw new ArgumentException("Invalid user Id:" + id);
-            existingUser.UserName = user.UserName;
-            existingUser.Fullname = user.Fullname;
-            existingUser.Password = user.Password;
-            existingUser.Role = user.Role;
-            return Ok(user);
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
-        {
-            User user = _userRepository.FindById(id);
-            
-            if (user == null)
-                throw new ArgumentException("Invalid user Id:" + id);
-
-            return Ok();
-        }
+    public class RegisterDto
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
+        public string Fullname { get; set; }
     }
 }

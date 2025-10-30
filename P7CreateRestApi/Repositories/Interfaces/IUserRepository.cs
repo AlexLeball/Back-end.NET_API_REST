@@ -1,13 +1,13 @@
-﻿using P7CreateRestApi.Models;
+﻿using Microsoft.AspNetCore.Identity;
 using P7CreateRestApi.Domain;
 
 namespace P7CreateRestApi.Repositories.Interfaces
 {
-    public interface IUserRepository 
+    public interface IUserRepository
     {
-        Task<List<User>> FindAll();
-        bool Update(int id, User user);
-        void Add(User user);
-        User FindById(int id);
+        IEnumerable<User> FindAll();
+        Task<User> FindByIdAsync(string id);
+        Task<IdentityResult> AddAsync(User user, string password);
+        Task<IdentityResult> UpdateAsync(User user);
     }
 }
