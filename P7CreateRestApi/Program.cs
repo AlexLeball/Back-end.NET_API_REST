@@ -2,13 +2,32 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using P7CreateRestApi.Data;
 using P7CreateRestApi.Domain;
+using P7CreateRestApi.Middlewares;
 using P7CreateRestApi.Repositories;
 using P7CreateRestApi.Repositories.Interfaces;
+using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+//logging configuration
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+
+    // --- Custom File Logger ---
+    var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "LOGS");
+    if (!Directory.Exists(logDirectory))
+        Directory.CreateDirectory(logDirectory);
+
+    var logFile = Path.Combine(logDirectory, $"log-{DateTime.Now:yyyy-MM-dd}-project7.txt");
+    logging.AddFile(logFile); // custom extension added below
+});
+
+
 
 builder.Configuration
     .AddJsonFile("secret.config", optional: true, reloadOnChange: true);
@@ -51,7 +70,10 @@ builder.Services.AddAuthentication(options =>
 });
 
 // Add Controllers and Swagger
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+   
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -74,8 +96,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
+//logging middleware
+app.UseRequestLogging();
 // Add these two in this exact order:
 app.UseAuthentication();
 app.UseAuthorization();
@@ -86,6 +111,14 @@ using (var scope = app.Services.CreateScope())
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     await DataSeeder.SeedRolesAsync(roleManager);
 }
+
+// Log all API requests
+app.Use(async (context, next) =>
+{
+    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation($"[{DateTime.Now}] {context.Request.Method} {context.Request.Path}");
+    await next.Invoke();
+});
 app.MapControllers();
 
 app.Run();
@@ -103,6 +136,61 @@ public static class DataSeeder
             {
                 await roleManager.CreateAsync(new IdentityRole(roleName));
             }
+        }
+    }
+}
+
+// --- File Logger Provider ---
+public static class FileLoggerExtensions
+{
+    public static ILoggingBuilder AddFile(this ILoggingBuilder builder, string filePath)
+    {
+        builder.AddProvider(new FileLoggerProvider(filePath));
+        return builder;
+    }
+}
+
+public class FileLoggerProvider : ILoggerProvider
+{
+    private readonly string _filePath;
+    private readonly object _lock = new();
+
+    public FileLoggerProvider(string filePath)
+    {
+        _filePath = filePath;
+    }
+
+    public ILogger CreateLogger(string categoryName)
+    {
+        return new FileLogger(_filePath, _lock);
+    }
+
+    public void Dispose() { }
+}
+
+public class FileLogger : ILogger
+{
+    private readonly string _filePath;
+    private readonly object _lock;
+
+    public FileLogger(string filePath, object writeLock)
+    {
+        _filePath = filePath;
+        _lock = writeLock;
+    }
+
+    public IDisposable BeginScope<TState>(TState state) => null!;
+    public bool IsEnabled(LogLevel logLevel) => true;
+
+    public void Log<TState>(LogLevel logLevel, EventId eventId, TState state,
+        Exception? exception, Func<TState, Exception?, string> formatter)
+    {
+        if (!IsEnabled(logLevel)) return;
+
+        var message = $"[{DateTime.Now:HH:mm:ss}] {logLevel}: {formatter(state, exception)}";
+        lock (_lock)
+        {
+            File.AppendAllText(_filePath, message + Environment.NewLine);
         }
     }
 }
