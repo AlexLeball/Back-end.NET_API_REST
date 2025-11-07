@@ -1,6 +1,0 @@
-[10:39:29] Information: ➡️ POST /api/User by Anonymous at 10/31/2025 09:39:29
-[10:39:29] Information: [31/10/2025 10:39:29] POST /api/User
-[10:39:30] Information: ⬅️ Response 200 for POST /api/User by Anonymous at 10/31/2025 09:39:30
-[10:39:53] Information: ➡️ GET /api/User by Anonymous at 10/31/2025 09:39:53
-[10:39:53] Information: [31/10/2025 10:39:53] GET /api/User
-[10:39:54] Information: ⬅️ Response 200 for GET /api/User by Anonymous at 10/31/2025 09:39:54

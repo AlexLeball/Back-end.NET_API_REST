@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Domain;
 using P7CreateRestApi.Repositories.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace P7CreateRestApi.Controllers
 {
@@ -31,10 +32,11 @@ namespace P7CreateRestApi.Controllers
             return Ok(user);
         }
 
+        // Add a new user with role and fullname
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] RegisterDto model)
         {
-            var user = new User { UserName = model.Email, Email = model.Email, Fullname = model.Fullname, Role = model.Role};
+            var user = new User { UserName = model.Email, Email = model.Email, Fullname = model.Fullname};
             var result = await _userRepository.AddAsync(user, model.Password);
 
             if (!result.Succeeded)
@@ -44,11 +46,16 @@ namespace P7CreateRestApi.Controllers
         }
     }
 
+    //DTO for user registration 
     public class RegisterDto
     {
+        [Required, EmailAddress]
         public string Email { get; set; }
+
+        [Required, MinLength(6)]
         public string Password { get; set; }
-        public string Role { get; set; }
+
+        [Required]
         public string Fullname { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace P7CreateRestApi.Middlewares
             var path = request.Path;
             var timestamp = DateTime.UtcNow;
 
-            _logger.LogInformation("➡️ {Method} {Path} by {User} at {Timestamp}",
+            _logger.LogInformation("{Method} {Path} by {User} at {Timestamp}",
                 method, path, userName, timestamp);
 
             // Continue the pipeline
@@ -35,7 +35,7 @@ namespace P7CreateRestApi.Middlewares
 
             var responseStatus = context.Response.StatusCode;
 
-            _logger.LogInformation("⬅️ Response {StatusCode} for {Method} {Path} by {User} at {Timestamp}",
+            _logger.LogInformation("Response {StatusCode} for {Method} {Path} by {User} at {Timestamp}",
                 responseStatus, method, path, userName, DateTime.UtcNow);
         }
     }

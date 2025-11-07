@@ -1,0 +1,15 @@
+[10:39:29] Information: ➡️ POST /api/User by Anonymous at 10/31/2025 09:39:29
+[10:39:29] Information: [31/10/2025 10:39:29] POST /api/User
+[10:39:30] Information: ⬅️ Response 200 for POST /api/User by Anonymous at 10/31/2025 09:39:30
+[10:39:53] Information: ➡️ GET /api/User by Anonymous at 10/31/2025 09:39:53
+[10:39:53] Information: [31/10/2025 10:39:53] GET /api/User
+[10:39:54] Information: ⬅️ Response 200 for GET /api/User by Anonymous at 10/31/2025 09:39:54
+[11:02:59] Information: ➡️ POST /api/Auth/login by Anonymous at 10/31/2025 10:02:59
+[11:02:59] Information: [31/10/2025 11:02:59] POST /api/Auth/login
+[11:02:59] Information: ⬅️ Response 200 for POST /api/Auth/login by Anonymous at 10/31/2025 10:02:59
+[11:12:05] Information: POST /RuleName by Anonymous at 11/07/2025 10:12:05
+[11:12:05] Information: [07/11/2025 11:12:05] POST /RuleName
+[11:12:06] Information: Response 200 for POST /RuleName by Anonymous at 11/07/2025 10:12:06
+[11:31:16] Information: POST /api/User by Anonymous at 11/07/2025 10:31:16
+[11:31:16] Information: [07/11/2025 11:31:16] POST /api/User
+[11:31:17] Information: Response 200 for POST /api/User by Anonymous at 11/07/2025 10:31:17

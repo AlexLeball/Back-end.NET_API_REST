@@ -18,12 +18,12 @@ builder.Host.ConfigureLogging(logging =>
     logging.ClearProviders();
     logging.AddConsole();
 
-    // --- Custom File Logger ---
+    //File Logger
     var logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "LOGS");
     if (!Directory.Exists(logDirectory))
         Directory.CreateDirectory(logDirectory);
 
-    var logFile = Path.Combine(logDirectory, $"log-{DateTime.Now:yyyy-MM-dd}-project7.txt");
+    var logFile = Path.Combine(logDirectory, $"log-project7.txt");
     logging.AddFile(logFile); // custom extension added below
 });
 
@@ -99,11 +99,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//logging middleware
-app.UseRequestLogging();
 // Add these two in this exact order:
 app.UseAuthentication();
 app.UseAuthorization();
+
+//logging middleware
+app.UseRequestLogging();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -140,7 +141,7 @@ public static class DataSeeder
     }
 }
 
-// --- File Logger Provider ---
+//File Logger Provider
 public static class FileLoggerExtensions
 {
     public static ILoggingBuilder AddFile(this ILoggingBuilder builder, string filePath)
