@@ -19,7 +19,7 @@ namespace P7CreateRestApi.Controllers
         [HttpPost]
         public IActionResult AddTrade([FromBody] Trade trade)
         {
-            if (trade == null) return BadRequest("Invalid trade data");
+            if (trade == null) return BadRequest();
             _tradeRepository.Add(trade);
             return Ok(trade);
         }
@@ -29,7 +29,7 @@ namespace P7CreateRestApi.Controllers
         public IActionResult FindTrade(int id)
         {
             var trade = _tradeRepository.GetById(id);
-            if (trade == null) return NotFound($"Trade with id {id} not found");
+            if (trade == null) return NotFound();
             return Ok(trade);
         }
 
@@ -37,10 +37,10 @@ namespace P7CreateRestApi.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateTrade(int id, [FromBody] Trade trade)
         {
-            if (trade == null) return BadRequest("Invalid trade data");
+            if (trade == null) return BadRequest();
 
             var updated = _tradeRepository.Update(id, trade);
-            if (!updated) return NotFound($"Trade with id {id} not found");
+            if (!updated) return NotFound();
 
             return Ok(_tradeRepository.GetById(id));
         }
@@ -50,7 +50,7 @@ namespace P7CreateRestApi.Controllers
         public IActionResult DeleteTrade(int id)
         {
             var deleted = _tradeRepository.Delete(id);
-            if (!deleted) return NotFound($"Trade with id {id} not found");
+            if (!deleted) return NotFound();
 
             return Ok(_tradeRepository.GetAll());
         }

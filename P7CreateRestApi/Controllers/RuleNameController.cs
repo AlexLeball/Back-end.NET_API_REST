@@ -28,7 +28,7 @@ namespace P7CreateRestApi.Controllers
         public IActionResult GetRuleName(int id)
         {
             var ruleName = _ruleNameRepository.GetById(id);
-            if (ruleName == null) return NotFound($"RuleName with id {id} not found");
+            if (ruleName == null) return NotFound(); 
 
             return Ok(ruleName);
         }

@@ -13,8 +13,6 @@ namespace P7CreateRestApi.Repositories
             DbContext = dbContext;
         }
 
-
-
         public BidList? GetById(int id)
         {
             return DbContext.Bids.FirstOrDefault(c => c.BidListId == id);
@@ -44,6 +42,17 @@ namespace P7CreateRestApi.Repositories
             existing.DealType = bid.DealType;
             existing.SourceListId = bid.SourceListId;
             existing.Side = bid.Side;
+            existing.Benchmark = bid.Benchmark;
+            existing.BidListDate = bid.BidListDate;
+            existing.Commentary = bid.Commentary;
+            existing.BidSecurity = bid.BidSecurity;
+            existing.BidStatus = bid.BidStatus;
+            existing.Trader = bid.Trader;
+            existing.Book = bid.Book;
+            existing.CreationName = bid.CreationName;
+            existing.CreationDate = bid.CreationDate;
+            existing.RevisionName = bid.RevisionName;
+            existing.RevisionDate = bid.RevisionDate;
             DbContext.SaveChanges();
             return true;
         }
