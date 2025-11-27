@@ -1,59 +1,58 @@
-using Dot.Net.WebApi.Domain;
+using P7CreateRestApi.Domain;
+using P7CreateRestApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dot.Net.WebApi.Controllers
+namespace P7CreateRestApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class TradeController : ControllerBase
     {
-        // TODO: Inject Trade service
+        private readonly ITradeRepository _tradeRepository;
 
-        [HttpGet]
-        [Route("list")]
-        public IActionResult Home()
+        public TradeController(ITradeRepository tradeRepository)
         {
-            // TODO: find all Trade, add to model
-            return Ok();
+            _tradeRepository = tradeRepository;
         }
 
-        [HttpGet]
-        [Route("add")]
-        public IActionResult AddTrade([FromBody]Trade trade)
-        {
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]Trade trade)
-        {
-            // TODO: check data valid and save to db, after saving return Trade list
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            // TODO: get Trade by Id and to model then show to the form
-            return Ok();
-        }
-
+        // POST: /trade
         [HttpPost]
-        [Route("update/{id}")]
+        public IActionResult AddTrade([FromBody] Trade trade)
+        {
+            if (trade == null) return BadRequest();
+            _tradeRepository.Add(trade);
+            return Ok(trade);
+        }
+
+        // GET: /trade/{id}
+        [HttpGet("{id}")]
+        public IActionResult FindTrade(int id)
+        {
+            var trade = _tradeRepository.GetById(id);
+            if (trade == null) return NotFound();
+            return Ok(trade);
+        }
+
+        // PUT: /trade/{id}
+        [HttpPut("{id}")]
         public IActionResult UpdateTrade(int id, [FromBody] Trade trade)
         {
-            // TODO: check required fields, if valid call service to update Trade and return Trade list
-            return Ok();
+            if (trade == null) return BadRequest();
+
+            var updated = _tradeRepository.Update(id, trade);
+            if (!updated) return NotFound();
+
+            return Ok(_tradeRepository.GetById(id));
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        // DELETE: /trade/{id}
+        [HttpDelete("{id}")]
         public IActionResult DeleteTrade(int id)
         {
-            // TODO: Find Trade by Id and delete the Trade, return to Trade list
-            return Ok();
+            var deleted = _tradeRepository.Delete(id);
+            if (!deleted) return NotFound();
+
+            return Ok(_tradeRepository.GetAll());
         }
     }
 }

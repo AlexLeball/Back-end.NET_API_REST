@@ -1,36 +1,65 @@
-using Dot.Net.WebApi.Data;
-using Dot.Net.WebApi.Domain;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using P7CreateRestApi.Domain;
+using P7CreateRestApi.Repositories.Interfaces;
 
-namespace Dot.Net.WebApi.Repositories
+namespace P7CreateRestApi.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
-        public LocalDbContext DbContext { get; }
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserRepository(LocalDbContext dbContext)
+        public UserRepository(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
-            DbContext = dbContext;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public User FindByUserName(string userName)
+        // List all users
+        public IEnumerable<User> FindAll()
         {
-            return DbContext.Users.Where(user => user.UserName == userName)
-                                  .FirstOrDefault();
+            return _userManager.Users.ToList();
         }
 
-        public async Task<List<User>> FindAll()
+        // Find user by id 
+        public async Task<User> FindByIdAsync(string id)
         {
-            return await DbContext.Users.ToListAsync();
+            return await _userManager.FindByIdAsync(id);
         }
 
-        public void Add(User user)
+        // Add a new user and assign role via Identity role system
+        public async Task<IdentityResult> AddAsync(User user, string password)
         {
+            // Défauts côté serveur
+            var roleToAssign = string.IsNullOrWhiteSpace(user.Role) ? "User" : user.Role;
+            user.Role = roleToAssign;
+            user.Fullname = string.IsNullOrWhiteSpace(user.Fullname) ? "New User" : user.Fullname;
+
+            var createResult = await _userManager.CreateAsync(user, password);
+            if (!createResult.Succeeded)
+                return createResult;
+
+            // make sure role exists
+            if (!await _roleManager.RoleExistsAsync(roleToAssign))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(roleToAssign));
+            }
+
+            var addRoleResult = await _userManager.AddToRoleAsync(user, roleToAssign);
+            if (!addRoleResult.Succeeded)
+            {
+                // clean if role assignment fails
+                await _userManager.DeleteAsync(user);
+                return IdentityResult.Failed(addRoleResult.Errors.ToArray());
+            }
+
+            return IdentityResult.Success;
         }
 
-        public User FindById(int id)
+        // Update an existing user
+        public async Task<IdentityResult> UpdateAsync(User user)
         {
-            return null;
+            return await _userManager.UpdateAsync(user);
         }
     }
 }

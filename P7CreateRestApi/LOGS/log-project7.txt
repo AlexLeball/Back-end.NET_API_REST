@@ -1,0 +1,64 @@
+[10:39:29] Information: ➡️ POST /api/User by Anonymous at 10/31/2025 09:39:29
+[10:39:29] Information: [31/10/2025 10:39:29] POST /api/User
+[10:39:30] Information: ⬅️ Response 200 for POST /api/User by Anonymous at 10/31/2025 09:39:30
+[10:39:53] Information: ➡️ GET /api/User by Anonymous at 10/31/2025 09:39:53
+[10:39:53] Information: [31/10/2025 10:39:53] GET /api/User
+[10:39:54] Information: ⬅️ Response 200 for GET /api/User by Anonymous at 10/31/2025 09:39:54
+[11:02:59] Information: ➡️ POST /api/Auth/login by Anonymous at 10/31/2025 10:02:59
+[11:02:59] Information: [31/10/2025 11:02:59] POST /api/Auth/login
+[11:02:59] Information: ⬅️ Response 200 for POST /api/Auth/login by Anonymous at 10/31/2025 10:02:59
+[11:12:05] Information: POST /RuleName by Anonymous at 11/07/2025 10:12:05
+[11:12:05] Information: [07/11/2025 11:12:05] POST /RuleName
+[11:12:06] Information: Response 200 for POST /RuleName by Anonymous at 11/07/2025 10:12:06
+[11:31:16] Information: POST /api/User by Anonymous at 11/07/2025 10:31:16
+[11:31:16] Information: [07/11/2025 11:31:16] POST /api/User
+[11:31:17] Information: Response 200 for POST /api/User by Anonymous at 11/07/2025 10:31:17
+[14:06:45] Information: POST /api/User by Anonymous at 11/07/2025 13:06:45
+[14:06:45] Information: [07/11/2025 14:06:45] POST /api/User
+[14:06:45] Error: Failed executing DbCommand (22ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 256), @p4='?' (DbType = Boolean), @p5='?' (Size = 4000), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTimeOffset), @p8='?' (Size = 256), @p9='?' (Size = 256), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (DbType = Boolean), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [ConcurrencyStamp], [Email], [EmailConfirmed], [Fullname], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [SecurityStamp], [TwoFactorEnabled], [UserName])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15);
+[14:06:45] Error: An exception occurred in the database while saving changes for context type 'P7CreateRestApi.Data.LocalDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'Role', table 'P7CreateRestApi.dbo.AspNetUsers'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:cdf74d14-fa1b-4993-80be-568ffc9a5804
+Error Number:515,State:2,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+[14:06:45] Error: An unhandled exception has occurred while executing the request.
+[14:07:47] Information: POST /api/User by Anonymous at 11/07/2025 13:07:47
+[14:07:47] Information: [07/11/2025 14:07:47] POST /api/User
+[14:07:47] Warning: User password validation failed: PasswordRequiresNonAlphanumeric;PasswordRequiresDigit;PasswordRequiresUpper.
+[14:07:47] Information: Response 400 for POST /api/User by Anonymous at 11/07/2025 13:07:47
+[14:08:21] Information: POST /api/User by Anonymous at 11/07/2025 13:08:21
+[14:08:21] Information: [07/11/2025 14:08:21] POST /api/User
+[14:08:21] Information: Response 200 for POST /api/User by Anonymous at 11/07/2025 13:08:21
+[14:09:24] Information: POST /api/Auth/login by Anonymous at 11/07/2025 13:09:24
+[14:09:24] Information: [07/11/2025 14:09:24] POST /api/Auth/login
+[14:09:24] Information: Response 200 for POST /api/Auth/login by Anonymous at 11/07/2025 13:09:24
+[14:10:09] Information: POST /BidList by Anonymous at 11/07/2025 13:10:09
+[14:10:09] Information: [07/11/2025 14:10:09] POST /BidList
+[14:10:09] Information: Response 200 for POST /BidList by Anonymous at 11/07/2025 13:10:09
+[10:19:20] Information: POST /BidList by Anonymous at 11/27/2025 09:19:20
+[10:19:20] Information: [27/11/2025 10:19:20] POST /BidList
+[10:19:20] Information: Response 200 for POST /BidList by Anonymous at 11/27/2025 09:19:20

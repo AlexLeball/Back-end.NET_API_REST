@@ -1,58 +1,57 @@
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Domain;
+using P7CreateRestApi.Repositories.Interfaces;
 
-namespace Dot.Net.WebApi.Controllers
+namespace P7CreateRestApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class RuleNameController : ControllerBase
     {
-        // TODO: Inject RuleName service
+        private readonly IRuleNameRepository _ruleNameRepository;
 
-        [HttpGet]
-        [Route("list")]
-        public IActionResult Home()
+        public RuleNameController(IRuleNameRepository ruleNameService)
         {
-            // TODO: find all RuleName, add to model
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("add")]
-        public IActionResult AddRuleName([FromBody]RuleName trade)
-        {
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]RuleName trade)
-        {
-            // TODO: check data valid and save to db, after saving return RuleName list
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            // TODO: get RuleName by Id and to model then show to the form
-            return Ok();
+            _ruleNameRepository = ruleNameService;
         }
 
         [HttpPost]
-        [Route("update/{id}")]
-        public IActionResult UpdateRuleName(int id, [FromBody] RuleName rating)
+        public IActionResult AddRuleName([FromBody] RuleName ruleName)
         {
-            // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-            return Ok();
+            if (ruleName == null) return BadRequest("Invalid RuleName data");
+
+            _ruleNameRepository.Add(ruleName);
+            return Ok(ruleName);
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpGet("{id}")]
+        public IActionResult GetRuleName(int id)
+        {
+            var ruleName = _ruleNameRepository.GetById(id);
+            if (ruleName == null) return NotFound(); 
+
+            return Ok(ruleName);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateRuleName(int id, [FromBody] RuleName ruleName)
+        {
+            if (ruleName == null) return BadRequest("Invalid RuleName data");
+
+            var updated = _ruleNameRepository.Update(id, ruleName);
+            if (!updated) return NotFound($"RuleName with id {id} not found");
+
+            return Ok(_ruleNameRepository.GetAll());
+        }
+
+        [HttpDelete("{id}")]
         public IActionResult DeleteRuleName(int id)
         {
-            // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-            return Ok();
+            var deleted = _ruleNameRepository.Delete(id);
+            if (!deleted) return NotFound($"RuleName with id {id} not found");
+
+            return Ok(_ruleNameRepository.GetAll());
         }
+
     }
 }

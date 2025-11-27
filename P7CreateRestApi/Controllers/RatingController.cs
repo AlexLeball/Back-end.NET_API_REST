@@ -1,59 +1,67 @@
-using Dot.Net.WebApi.Controllers.Domain;
+using P7CreateRestApi.Controllers;
+using P7CreateRestApi.Domain;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Repositories.Interfaces;
 
-namespace Dot.Net.WebApi.Controllers
+namespace P7CreateRestApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class RatingController : ControllerBase
     {
-        // TODO: Inject Rating service
+        private readonly IRatingRepository _ratingService;
 
-        [HttpGet]
-        [Route("list")]
-        public IActionResult Home()
+        public RatingController(IRatingRepository ratingService)
         {
-            // TODO: find all Rating, add to model
-            return Ok();
+            _ratingService = ratingService;
         }
 
-        [HttpGet]
-        [Route("add")]
-        public IActionResult AddRatingForm([FromBody]Rating rating)
-        {
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("validate")]
-        public IActionResult Validate([FromBody]Rating rating)
-        {
-            // TODO: check data valid and save to db, after saving return Rating list
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("update/{id}")]
-        public IActionResult ShowUpdateForm(int id)
-        {
-            // TODO: get Rating by Id and to model then show to the form
-            return Ok();
-        }
-
+        // POST: api/rating
         [HttpPost]
-        [Route("update/{id}")]
+        public IActionResult Add([FromBody] Rating rating)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            _ratingService.Add(rating);
+            return Ok(rating);
+        }
+
+
+        // GET: api/rating/{id}
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var rating = _ratingService.GetById(id);
+            if (rating == null)
+                return NotFound();
+
+            return Ok(rating);
+        }
+
+        // PUT: api/rating/{id}
+        [HttpPut("{id}")]
         public IActionResult UpdateRating(int id, [FromBody] Rating rating)
         {
-            // TODO: check required fields, if valid call service to update Rating and return Rating list
-            return Ok();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var updated = _ratingService.Update(id, rating);
+            if (!updated)
+                return NotFound();
+
+            return Ok(_ratingService.GetById(id));
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        // DELETE: api/rating/{id}
+        [HttpDelete("{id}")]
         public IActionResult DeleteRating(int id)
         {
-            // TODO: Find Rating by Id and delete the Rating, return to Rating list
-            return Ok();
+            var deleted = _ratingService.Delete(id);
+            if (!deleted)
+                return NotFound();
+
+            return Ok(_ratingService.GetAll());
         }
     }
 }
