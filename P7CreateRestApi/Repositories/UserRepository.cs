@@ -55,7 +55,14 @@ namespace P7CreateRestApi.Repositories
 
             return IdentityResult.Success;
         }
-        // Delete a user by id
+
+        // update user password
+        public async Task<IdentityResult> UpdatePasswordAsync(User user, string newPassword)
+        {
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return await _userManager.ResetPasswordAsync(user, token, newPassword);
+        }
+
         public async Task<IdentityResult> DeleteAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
