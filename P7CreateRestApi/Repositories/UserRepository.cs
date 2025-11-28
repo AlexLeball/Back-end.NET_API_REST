@@ -55,6 +55,16 @@ namespace P7CreateRestApi.Repositories
 
             return IdentityResult.Success;
         }
+        // Delete a user by id
+        public async Task<IdentityResult> DeleteAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = $"User with ID {id} not found." });
+            }
+            return await _userManager.DeleteAsync(user);
+        }
 
         // Update an existing user
         public async Task<IdentityResult> UpdateAsync(User user)

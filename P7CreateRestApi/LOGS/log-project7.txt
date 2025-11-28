@@ -62,3 +62,19 @@ Error Number:515,State:2,Class:16
 [10:19:20] Information: POST /BidList by Anonymous at 11/27/2025 09:19:20
 [10:19:20] Information: [27/11/2025 10:19:20] POST /BidList
 [10:19:20] Information: Response 200 for POST /BidList by Anonymous at 11/27/2025 09:19:20
+[14:45:58] Information: POST /api/User by Anonymous at 11/28/2025 13:45:58
+[14:45:58] Information: [28/11/2025 14:45:58] POST /api/User
+[14:45:59] Warning: User validation failed: DuplicateUserName.
+[14:45:59] Information: Response 400 for POST /api/User by Anonymous at 11/28/2025 13:45:59
+[14:46:31] Information: POST /api/User by Anonymous at 11/28/2025 13:46:31
+[14:46:31] Information: [28/11/2025 14:46:31] POST /api/User
+[14:46:31] Information: Response 200 for POST /api/User by Anonymous at 11/28/2025 13:46:31
+[14:47:36] Information: POST /api/Auth/login by Anonymous at 11/28/2025 13:47:36
+[14:47:36] Information: [28/11/2025 14:47:36] POST /api/Auth/login
+[14:47:37] Information: Response 200 for POST /api/Auth/login by Anonymous at 11/28/2025 13:47:37
+[15:22:58] Information: DELETE /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f by Anonymous at 11/28/2025 14:22:58
+[15:22:58] Information: [28/11/2025 15:22:58] DELETE /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f
+[15:22:59] Information: Response 200 for DELETE /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f by Anonymous at 11/28/2025 14:22:59
+[15:23:15] Information: GET /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f by Anonymous at 11/28/2025 14:23:15
+[15:23:15] Information: [28/11/2025 15:23:15] GET /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f
+[15:23:15] Information: Response 404 for GET /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f by Anonymous at 11/28/2025 14:23:15

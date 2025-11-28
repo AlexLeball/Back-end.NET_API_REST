@@ -44,6 +44,16 @@ namespace P7CreateRestApi.Controllers
 
             return Ok("User created successfully");
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var result = await _userRepository.DeleteAsync(id);
+            if (!result.Succeeded)
+                return NotFound(result.Errors);
+
+            return Ok("User deleted successfully");
+        }
     }
 
     //DTO for user registration 

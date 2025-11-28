@@ -9,5 +9,6 @@ namespace P7CreateRestApi.Repositories.Interfaces
         Task<User> FindByIdAsync(string id);
         Task<IdentityResult> AddAsync(User user, string password);
         Task<IdentityResult> UpdateAsync(User user);
+        Task<IdentityResult> DeleteAsync(string id);
     }
 }
