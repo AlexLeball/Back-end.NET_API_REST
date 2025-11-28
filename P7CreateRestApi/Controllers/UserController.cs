@@ -45,6 +45,24 @@ namespace P7CreateRestApi.Controllers
             return Ok("User created successfully");
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(string id, [FromBody] RegisterDto model)
+        {
+            var user = await _userRepository.FindByIdAsync(id);
+            if (user == null)
+                return NotFound();
+
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            user.Fullname = model.Fullname;
+
+            var result = await _userRepository.UpdateAsync(user);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            return Ok("User updated successfully");
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {

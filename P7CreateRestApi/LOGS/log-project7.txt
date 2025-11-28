@@ -78,3 +78,22 @@ Error Number:515,State:2,Class:16
 [15:23:15] Information: GET /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f by Anonymous at 11/28/2025 14:23:15
 [15:23:15] Information: [28/11/2025 15:23:15] GET /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f
 [15:23:15] Information: Response 404 for GET /api/User/b13a2aff-7120-42e5-ad40-a2f32613f36f by Anonymous at 11/28/2025 14:23:15
+[16:55:51] Information: GET /api/User by Anonymous at 11/28/2025 15:55:51
+[16:55:51] Information: [28/11/2025 16:55:51] GET /api/User
+[16:55:51] Information: Response 200 for GET /api/User by Anonymous at 11/28/2025 15:55:51
+[16:56:58] Information: PUT /api/User by Anonymous at 11/28/2025 15:56:58
+[16:56:58] Information: [28/11/2025 16:56:58] PUT /api/User
+[16:56:59] Error: An unhandled exception has occurred while executing the request.
+[16:58:34] Information: GET /api/User by Anonymous at 11/28/2025 15:58:34
+[16:58:34] Information: [28/11/2025 16:58:34] GET /api/User
+[16:58:34] Information: Response 200 for GET /api/User by Anonymous at 11/28/2025 15:58:34
+[16:59:35] Information: PUT /api/User/28c11d30-a00a-4cfa-8715-f0666161895e by Anonymous at 11/28/2025 15:59:35
+[16:59:35] Information: [28/11/2025 16:59:35] PUT /api/User/28c11d30-a00a-4cfa-8715-f0666161895e
+[16:59:35] Warning: User validation failed: DuplicateUserName.
+[16:59:35] Information: Response 400 for PUT /api/User/28c11d30-a00a-4cfa-8715-f0666161895e by Anonymous at 11/28/2025 15:59:35
+[16:59:46] Information: PUT /api/User/28c11d30-a00a-4cfa-8715-f0666161895e by Anonymous at 11/28/2025 15:59:46
+[16:59:46] Information: [28/11/2025 16:59:46] PUT /api/User/28c11d30-a00a-4cfa-8715-f0666161895e
+[16:59:47] Information: Response 200 for PUT /api/User/28c11d30-a00a-4cfa-8715-f0666161895e by Anonymous at 11/28/2025 15:59:47
+[17:00:16] Information: GET /api/User by Anonymous at 11/28/2025 16:00:16
+[17:00:16] Information: [28/11/2025 17:00:16] GET /api/User
+[17:00:16] Information: Response 200 for GET /api/User by Anonymous at 11/28/2025 16:00:16
