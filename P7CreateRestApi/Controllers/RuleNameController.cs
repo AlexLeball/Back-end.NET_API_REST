@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Domain;
 using P7CreateRestApi.Repositories.Interfaces;
 
 namespace P7CreateRestApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RuleNameController : ControllerBase

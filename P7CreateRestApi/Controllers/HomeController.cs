@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace P7CreateRestApi.Controllers
@@ -12,6 +13,7 @@ namespace P7CreateRestApi.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("Admin")]
         public IActionResult Admin()

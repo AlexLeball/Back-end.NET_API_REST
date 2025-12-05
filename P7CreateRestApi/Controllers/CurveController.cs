@@ -1,5 +1,6 @@
-using P7CreateRestApi.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using P7CreateRestApi.Domain;
 using P7CreateRestApi.Repositories.Interfaces;
 
 // Ajoutez cette directive using si l'interface ICurvePointService se trouve dans un autre namespace
@@ -7,6 +8,7 @@ using P7CreateRestApi.Repositories.Interfaces;
 
 namespace P7CreateRestApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CurveController : ControllerBase

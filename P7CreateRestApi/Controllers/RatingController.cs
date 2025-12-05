@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Controllers;
 using P7CreateRestApi.Domain;
-using Microsoft.AspNetCore.Mvc;
 using P7CreateRestApi.Repositories.Interfaces;
 
 namespace P7CreateRestApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RatingController : ControllerBase
