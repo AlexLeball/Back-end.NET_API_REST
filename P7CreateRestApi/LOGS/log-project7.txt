@@ -97,3 +97,66 @@ Error Number:515,State:2,Class:16
 [17:00:16] Information: GET /api/User by Anonymous at 11/28/2025 16:00:16
 [17:00:16] Information: [28/11/2025 17:00:16] GET /api/User
 [17:00:16] Information: Response 200 for GET /api/User by Anonymous at 11/28/2025 16:00:16
+[17:05:08] Information: GET /Home/Admin by Anonymous at 11/28/2025 16:05:08
+[17:05:08] Information: [28/11/2025 17:05:08] GET /Home/Admin
+[17:05:08] Information: Response 200 for GET /Home/Admin by Anonymous at 11/28/2025 16:05:08
+[10:06:04] Information: POST /Rating by Anonymous at 11/29/2025 09:06:04
+[10:06:04] Information: [29/11/2025 10:06:04] POST /Rating
+[10:06:06] Information: Response 200 for POST /Rating by Anonymous at 11/29/2025 09:06:06
+[10:07:55] Information: GET /Rating/1 by Anonymous at 11/29/2025 09:07:55
+[10:07:55] Information: [29/11/2025 10:07:55] GET /Rating/1
+[10:07:55] Information: Response 200 for GET /Rating/1 by Anonymous at 11/29/2025 09:07:55
+[10:08:58] Information: PUT /Rating/1 by Anonymous at 11/29/2025 09:08:58
+[10:08:58] Information: [29/11/2025 10:08:58] PUT /Rating/1
+[10:08:58] Information: Response 200 for PUT /Rating/1 by Anonymous at 11/29/2025 09:08:58
+[10:09:17] Information: DELETE /Rating/1 by Anonymous at 11/29/2025 09:09:17
+[10:09:17] Information: [29/11/2025 10:09:17] DELETE /Rating/1
+[10:09:17] Information: Response 200 for DELETE /Rating/1 by Anonymous at 11/29/2025 09:09:17
+[10:19:03] Information: GET /api/User by Anonymous at 11/29/2025 09:19:03
+[10:19:03] Information: [29/11/2025 10:19:03] GET /api/User
+[10:19:03] Information: Response 200 for GET /api/User by Anonymous at 11/29/2025 09:19:03
+[10:20:17] Information: POST /api/User by Anonymous at 11/29/2025 09:20:17
+[10:20:17] Information: [29/11/2025 10:20:17] POST /api/User
+[10:20:17] Information: Response 200 for POST /api/User by Anonymous at 11/29/2025 09:20:17
+[10:20:40] Information: GET /api/User by Anonymous at 11/29/2025 09:20:40
+[10:20:40] Information: [29/11/2025 10:20:40] GET /api/User
+[10:20:40] Information: Response 200 for GET /api/User by Anonymous at 11/29/2025 09:20:40
+[10:21:41] Information: POST /api/Auth/login by Anonymous at 11/29/2025 09:21:41
+[10:21:41] Information: [29/11/2025 10:21:41] POST /api/Auth/login
+[10:21:42] Information: Response 200 for POST /api/Auth/login by Anonymous at 11/29/2025 09:21:42
+[10:24:04] Information: DELETE /api/User/fe0acc71-0062-4921-a139-510c6ca0564f by Anonymous at 11/29/2025 09:24:04
+[10:24:04] Information: [29/11/2025 10:24:04] DELETE /api/User/fe0acc71-0062-4921-a139-510c6ca0564f
+[10:24:04] Information: Response 200 for DELETE /api/User/fe0acc71-0062-4921-a139-510c6ca0564f by Anonymous at 11/29/2025 09:24:04
+[10:53:32] Information: POST /api/Auth/login by Anonymous at 12/05/2025 09:53:32
+[10:53:32] Information: [05/12/2025 10:53:32] POST /api/Auth/login
+[10:53:32] Information: Response 401 for POST /api/Auth/login by Anonymous at 12/05/2025 09:53:32
+[10:54:19] Information: POST /api/Auth/login by Anonymous at 12/05/2025 09:54:19
+[10:54:19] Information: [05/12/2025 10:54:19] POST /api/Auth/login
+[10:54:19] Information: Response 401 for POST /api/Auth/login by Anonymous at 12/05/2025 09:54:19
+[10:54:41] Information: GET /api/User by Anonymous at 12/05/2025 09:54:41
+[10:54:41] Information: [05/12/2025 10:54:41] GET /api/User
+[10:54:41] Information: Response 200 for GET /api/User by Anonymous at 12/05/2025 09:54:41
+[10:55:07] Information: POST /api/Auth/login by Anonymous at 12/05/2025 09:55:07
+[10:55:07] Information: [05/12/2025 10:55:07] POST /api/Auth/login
+[10:55:07] Warning: Invalid password for user.
+[10:55:07] Warning: User failed to provide the correct password.
+[10:55:07] Information: Response 401 for POST /api/Auth/login by Anonymous at 12/05/2025 09:55:07
+[10:55:49] Information: POST /api/Auth/login by Anonymous at 12/05/2025 09:55:49
+[10:55:49] Information: [05/12/2025 10:55:49] POST /api/Auth/login
+[10:55:49] Warning: Invalid password for user.
+[10:55:49] Warning: User failed to provide the correct password.
+[10:55:49] Information: Response 401 for POST /api/Auth/login by Anonymous at 12/05/2025 09:55:49
+[10:55:53] Information: POST /api/Auth/login by Anonymous at 12/05/2025 09:55:53
+[10:55:53] Information: [05/12/2025 10:55:53] POST /api/Auth/login
+[10:55:53] Warning: Invalid password for user.
+[10:55:53] Warning: User failed to provide the correct password.
+[10:55:53] Information: Response 401 for POST /api/Auth/login by Anonymous at 12/05/2025 09:55:53
+[10:58:35] Information: POST /api/User by Anonymous at 12/05/2025 09:58:35
+[10:58:35] Information: [05/12/2025 10:58:35] POST /api/User
+[10:58:35] Information: Response 200 for POST /api/User by Anonymous at 12/05/2025 09:58:35
+[10:59:14] Information: POST /api/Auth/login by Anonymous at 12/05/2025 09:59:14
+[10:59:14] Information: [05/12/2025 10:59:14] POST /api/Auth/login
+[10:59:14] Information: Response 200 for POST /api/Auth/login by Anonymous at 12/05/2025 09:59:14
+[11:08:22] Information: POST /BidList by emailtestuser@email.com at 12/05/2025 10:08:22
+[11:08:22] Information: [05/12/2025 11:08:22] POST /BidList
+[11:08:22] Information: Response 200 for POST /BidList by emailtestuser@email.com at 12/05/2025 10:08:22
