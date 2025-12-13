@@ -43,6 +43,7 @@ namespace P7CreateRestApi.Controllers
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -80,4 +81,5 @@ namespace P7CreateRestApi.Controllers
         public string Username { get; set; }
         public string Password { get; set; }
     }
+}    }
 }

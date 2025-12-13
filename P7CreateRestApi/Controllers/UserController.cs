@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace P7CreateRestApi.Controllers
 {
     [Authorize]
-    [ApiController]
+    [ApiController] 
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
