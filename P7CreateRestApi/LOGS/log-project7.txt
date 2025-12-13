@@ -160,3 +160,15 @@ Error Number:515,State:2,Class:16
 [11:08:22] Information: POST /BidList by emailtestuser@email.com at 12/05/2025 10:08:22
 [11:08:22] Information: [05/12/2025 11:08:22] POST /BidList
 [11:08:22] Information: Response 200 for POST /BidList by emailtestuser@email.com at 12/05/2025 10:08:22
+[11:58:12] Information: POST /Auth/login by Anonymous at 12/13/2025 10:58:12
+[11:58:12] Information: [13/12/2025 11:58:12] POST /Auth/login
+[11:58:12] Information: Response 200 for POST /Auth/login by Anonymous at 12/13/2025 10:58:12
+[11:59:38] Information: PATCH /User by UpdateNewuser1@example.com at 12/13/2025 10:59:38
+[11:59:38] Information: [13/12/2025 11:59:38] PATCH /User
+[11:59:39] Information: Response 200 for PATCH /User by UpdateNewuser1@example.com at 12/13/2025 10:59:39
+[11:59:50] Information: DELETE /User by UpdateNewuser1@example.com at 12/13/2025 10:59:50
+[11:59:50] Information: [13/12/2025 11:59:50] DELETE /User
+[11:59:50] Information: Response 200 for DELETE /User by UpdateNewuser1@example.com at 12/13/2025 10:59:50
+[12:00:09] Information: GET /User by UpdateNewuser1@example.com at 12/13/2025 11:00:09
+[12:00:09] Information: [13/12/2025 12:00:09] GET /User
+[12:00:09] Information: Response 200 for GET /User by UpdateNewuser1@example.com at 12/13/2025 11:00:09
