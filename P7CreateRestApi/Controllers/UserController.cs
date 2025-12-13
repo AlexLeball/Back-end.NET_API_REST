@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using P7CreateRestApi.Domain;
 using P7CreateRestApi.Repositories.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace P7CreateRestApi.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
@@ -37,7 +40,7 @@ namespace P7CreateRestApi.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] RegisterDto model)
         {
-            var user = new User { UserName = model.Email, Email = model.Email, Fullname = model.Fullname};
+            var user = new User { UserName = model.Email, Email = model.Email, Fullname = model.Fullname };
             var result = await _userRepository.AddAsync(user, model.Password);
 
             if (!result.Succeeded)
@@ -46,11 +49,15 @@ namespace P7CreateRestApi.Controllers
             return Ok("User created successfully");
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] RegisterDto model)
+        [HttpPatch]
+        public async Task<IActionResult> Update([FromBody] RegisterDto model)
         {
-            var user = await _userRepository.FindByIdAsync(id);
-            if (user == null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId.IsNullOrEmpty())
+                return Unauthorized();
+
+            var user = await _userRepository.FindByIdAsync(userId);
+            if (user is null)
                 return NotFound();
 
             user.Email = model.Email;
@@ -64,10 +71,14 @@ namespace P7CreateRestApi.Controllers
             return Ok("User updated successfully");
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete()
         {
-            var result = await _userRepository.DeleteAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId.IsNullOrEmpty())
+                return Unauthorized();
+            
+            var result = await _userRepository.DeleteAsync(userId);
             if (!result.Succeeded)
                 return NotFound(result.Errors);
 
@@ -81,7 +92,7 @@ namespace P7CreateRestApi.Controllers
         [Required, EmailAddress]
         public string Email { get; set; }
 
-        [Required, MinLength(6)]
+        [Required, MinLength(8)]
         public string Password { get; set; }
 
         [Required]

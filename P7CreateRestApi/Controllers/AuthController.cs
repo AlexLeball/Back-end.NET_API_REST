@@ -10,7 +10,7 @@ using System.Text;
 namespace P7CreateRestApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
